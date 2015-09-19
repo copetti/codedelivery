@@ -136,7 +136,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -144,6 +144,7 @@ return [
         CodeDelivery\Providers\AuthServiceProvider::class,
         CodeDelivery\Providers\EventServiceProvider::class,
         CodeDelivery\Providers\RouteServiceProvider::class,
+        CodeDelivery\Providers\RepositoryServiceProvider::class,
 
     ],
 
