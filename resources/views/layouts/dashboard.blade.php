@@ -221,7 +221,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{{ url ('login') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{ url ('auth/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -251,6 +251,12 @@
                             <a href="{{ url ('admin/categories') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Categorias</a>
                             <!-- /.nav-second-level -->
                         </li>
+
+                        <li {{ (Request::is('admin.products/*') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('admin/products') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Produtos</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->

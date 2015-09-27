@@ -23,7 +23,7 @@
                                 <a href="{{ url ('') }}" class="btn btn-lg btn-success btn-block">Login</a>
                             </fieldset>
                         </form>
-                    
+
                 @endsection
                 @include('widgets.panel', array('as'=>'login', 'header'=>true))
             </div>

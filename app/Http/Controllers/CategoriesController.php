@@ -46,14 +46,7 @@ class CategoriesController extends Controller
     public function update(AdminCategoryRequest $request, $id){
         $data = $request->all();
 
-        //verifica se ja existe um componente com o mesmo nome
-        if($this->repository->find($id)->where('name', $data['name'])->count()){
-            $message = new MessageBag(["name" => "Já existe um componente com esse nome!"]); // Create your message
-
-            return redirect()->back()->withInput()->withErrors($message);
-        }else{
-            $this->repository->update($data,$id);
-        }
+        $this->repository->update($data,$id);
 
         return redirect()->route('admin.categories.index');
     }

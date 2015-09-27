@@ -22,15 +22,18 @@ $factory->define(CodeDelivery\Models\User::class, function (Faker\Generator $fak
 
 $factory->define(CodeDelivery\Models\Category::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->word
+        'name' => $faker->word,
+        'status' => true
     ];
 });
 
 $factory->define(CodeDelivery\Models\Product::class, function (Faker\Generator $faker) {
     return [
+        'category_id' => $faker->numberBetween(1,10),
         'name' => $faker->word,
         'description' => $faker->sentence,
-        'price' => $faker->numberBetween(10,59)
+        'price' => $faker->numberBetween(10,59),
+        'status' => true
     ];
 });
 

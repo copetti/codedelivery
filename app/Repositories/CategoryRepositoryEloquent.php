@@ -30,4 +30,8 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function lists(){
+        return $this->model->lists('name','id');
+    }
 }
