@@ -22,7 +22,11 @@ class Order extends Model implements Transformable
     }
 
     public function deliveryman(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_deliveryman_id');
+    }
+
+    public function client(){
+        return $this->belongsTo(User::class,'client_id');
     }
 
     public function products(){

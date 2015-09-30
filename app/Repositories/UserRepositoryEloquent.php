@@ -30,4 +30,20 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function lists(){
+        return $this->model->lists('name','id');
+    }
+
+    public function deliverymans(){
+        return $this->model->where('role','=', 'deliveryman')->lists('name','id');
+    }
+
+    public function role($type){
+        return $this->model->where('role','=',$type);
+    }
+
+    public function verifyUserEmail($email){
+        return $this->model->where('email','=', $email)->count();
+    }
 }

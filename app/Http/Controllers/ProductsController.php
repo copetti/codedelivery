@@ -6,7 +6,6 @@ use CodeDelivery\Http\Requests\AdminProductRequest;
 use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\MessageBag;
 
 class ProductsController extends Controller
 {

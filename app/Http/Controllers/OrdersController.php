@@ -2,21 +2,29 @@
 
 namespace CodeDelivery\Http\Controllers;
 
-use CodeDelivery\Http\Requests\AdminCategoryRequest;
-use CodeDelivery\Repositories\CategoryRepository;
+use CodeDelivery\Http\Requests\AdmimOrderRequest;
+use CodeDelivery\Repositories\OrderRepository;
+use CodeDelivery\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class OrdersController extends Controller
 {
     private $repository;
 
-    public function __construct(CategoryRepository $repository){
+    public function __construct(OrderRepository $repository, UserRepository $userRepository){
         $this->repository = $repository;
+        $this->userRepository = $userRepository;
     }
-    public function index(){
-        $categories = $this->repository->paginate();
 
-        return view('admin.categories.index', compact('categories'));
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function index(){
+        $orders = $this->repository->order('status')->paginate();
+
+        $deliverymans = $this->userRepository->deliverymans();
+
+        return view('admin.orders.index', compact('orders','deliverymans'));
     }
 
     public function create(){
@@ -62,4 +70,5 @@ class CategoriesController extends Controller
         $category->save();
         return redirect()->route('admin.categories.index');
     }
+
 }

@@ -257,6 +257,16 @@
                             <!-- /.nav-second-level -->
                         </li>
 
+                        <li {{ (Request::is('admin.clients/*') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('admin/clients') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Clientes</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li {{ (Request::is('admin.orders/*') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('admin/orders') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Pedidos</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->

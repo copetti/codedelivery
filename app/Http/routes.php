@@ -29,6 +29,21 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.']
     Route::get('products/edit/{id}',['as'=>'products.edit', 'uses'=>'ProductsController@edit']);
     Route::put('products/update/{id}',['as'=>'products.update', 'uses'=>'ProductsController@update']);
     Route::get('products/destroy/{id}/{status}',['as'=>'products.destroy', 'uses'=>'ProductsController@destroy']);
+
+    Route::get('clients',['as'=>'clients.index', 'uses'=>'ClientsController@index']);
+    Route::get('clients/create',['as'=>'clients.create', 'uses'=>'ClientsController@create']);
+    Route::post('clients/store',['as'=>'clients.store', 'uses'=>'ClientsController@store']);
+    Route::get('clients/edit/{id}',['as'=>'clients.edit', 'uses'=>'ClientsController@edit']);
+    Route::put('clients/update/{id}',['as'=>'clients.update', 'uses'=>'ClientsController@update']);
+    Route::get('clients/destroy/{id}/{status}',['as'=>'clients.destroy', 'uses'=>'ClientsController@destroy']);
+
+    Route::get('orders',['as'=>'orders.index', 'uses'=>'OrdersController@index']);
+    Route::get('orders/create',['as'=>'orders.create', 'uses'=>'OrdersController@create']);
+    Route::post('orders/store',['as'=>'orders.store', 'uses'=>'OrdersController@store']);
+    Route::get('orders/edit/{id}',['as'=>'orders.edit', 'uses'=>'OrdersController@edit']);
+    Route::put('orders/update/{id}',['as'=>'orders.update', 'uses'=>'OrdersController@update']);
+    Route::get('orders/destroy/{id}/{status}',['as'=>'orders.destroy', 'uses'=>'OrdersController@destroy']);
+    Route::get('orders/details/{id}',['as'=>'orders.details', 'uses'=>'OrdersController@details']);
 });
 
 Route::get('/charts', function()
