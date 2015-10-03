@@ -18,7 +18,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="">
+                        <a href="{{ route('admin.orders.index',['status'=>'novo']) }} ">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -36,11 +36,11 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">12</div>
-                                    <div>Pedidos em Andamento</div>
+                                    <div>Pedidos em Atendimento</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="{{ route('admin.orders.index',['status'=>'atendimento']) }} ">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="{{ route('admin.orders.index',['status'=>'entregando']) }} ">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="{{ route('admin.orders.index',['status'=>'entregue']) }} ">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -98,25 +98,23 @@
             <div class="row">
                 <div class="col-lg-8">
                 
-                @section ('pane2_panel_title', 'Responsive Timeline')
+                @section ('pane2_panel_title', 'Linha do tempo')
                 @section ('pane2_panel_body')
-                    
+
                     <!-- /.panel -->
-                    
-                        
-              
+
                     <ul class="timeline">
                         <li>
-                            <div class="timeline-badge"><i class="fa fa-check"></i>
+                            <div class="timeline-badge danger"><i class="fa fa fa-check-square-o"></i>
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+                                    <h4 class="timeline-title">Novo pedido!</h4>
+                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> 15 minutos atras</small>
                                     </p>
                                 </div>
                                 <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p>
+                                    <p>Olá, gostaria de uma pizza de calabresa</p>
                                 </div>
                             </div>
                         </li>

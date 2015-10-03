@@ -34,4 +34,8 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function order($field){
         return $this->model->orderBy($field);
     }
+
+    public function filterBy($status){
+        return $this->model->where('status',$status);
+    }
 }

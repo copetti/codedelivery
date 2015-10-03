@@ -38,10 +38,10 @@
                                     <span class="label label-danger">Novo</span>
                                 @endif
                                 @if($order->status==1)
-                                    <span class="label label-warning">Em andamento</span>
+                                    <span class="label label-warning">Em atendimento</span>
                                 @endif
                                 @if($order->status==2)
-                                    <span class="label label-primary">Em entrega</span>
+                                    <span class="label label-primary">Em transporte</span>
                                 @endif
                                 @if($order->status==3)
                                     <span class="label label-success">Entregue</span>
@@ -113,44 +113,65 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                         <div class="text-right">
                             <strong>Total</strong>  <b class="right">R$ {!! number_format($total,'2',',','.') !!}</b>
                         </div>
+
                         <div class="modal-body">
+                                <div class="row">
+                                    {!! Form::open(['route'=>['admin.orders.status',$order->id],'method'=>'post']) !!}
 
-                            {!! Form::open(['id'=>'conteudo-form']) !!}
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="thumbnail">
+                                            <div class="caption">
 
-                            {!! Form::hidden('tipo',null,['id'=>'tipo']) !!}
+                                                <div class="form-group @if ($errors->has('status')) has-error @endif">
+                                                    {!! Form::label('status','Status:') !!}
+                                                    {!! Form::select('status',[0 => 'Novo',1 => 'Em atendimento',2 => 'Em entrega',3 => 'Entregue'],$order->status ,['class'=>'form-control']) !!}
+                                                    @if ($errors->has('status'))
+                                                        <p class="help-block">{{ $errors->first('status') }}</p>
+                                                    @endif
+                                                </div>
 
-                            <div class="form-group @if ($errors->has('deliveryman_id')) has-error @endif">
-                                {!! Form::label('deliveryman_id','Entregador:') !!}
-                                {!! Form::select('deliveryman_id',$deliverymans,null,['class'=>'form-control']) !!}
-                                @if ($errors->has('deliveryman_id'))
-                                    <p class="help-block">{{ $errors->first('deliveryman_id') }}</p>
-                                @endif
+                                                <div class="form-group">
+                                                    {!! Form::submit('Alterar', ['class'=> 'btn btn-primary']) !!}
+                                                </div>
+
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="thumbnail">
+                                            <div class="caption">
+
+                                                <div class="form-group @if ($errors->has('user_deliveryman_id')) has-error @endif">
+                                                    {!! Form::label('user_deliveryman_id','Entregador:') !!}
+                                                    {!! Form::select('user_deliveryman_id',$deliverymans,isset($order->deliveryman->id) ? $order->deliveryman->id:null ,['class'=>'form-control']) !!}
+                                                    @if ($errors->has('user_deliveryman_id'))
+                                                        <p class="help-block">{{ $errors->first('user_deliveryman_id') }}</p>
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {!! Form::submit('Alterar', ['class'=> 'btn btn-primary']) !!}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {!! Form::close() !!}
+                                </div>
                             </div>
-
-                            <div class="alert alert-success" role="alert" style="display:none;"></div>
-
-                            {!! Form::close() !!}
-
-                        </div>
-
                     </div>
                     <div class="modal-footer">
-
                         <button type="button" class="btn btn-default " data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Entregar</button>
                     </div>
 
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     @endforeach
-    <script>
-
-        function openModal(order_id){
-            $("#order_id").val(order_id)
-        }
-    </script>
 @stop

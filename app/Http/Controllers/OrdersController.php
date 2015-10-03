@@ -3,9 +3,11 @@
 namespace CodeDelivery\Http\Controllers;
 
 use CodeDelivery\Http\Requests\AdmimOrderRequest;
+use CodeDelivery\Http\Requests\AdminOrderRequest;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class OrdersController extends Controller
 {
@@ -14,17 +16,30 @@ class OrdersController extends Controller
     public function __construct(OrderRepository $repository, UserRepository $userRepository){
         $this->repository = $repository;
         $this->userRepository = $userRepository;
+        $this->statusList = [
+            'novo' =>  0,
+            'atendimento' =>  1,
+            'entregando' => 2,
+            'entregue' => 3
+        ];
     }
 
     /**
      * @return \Illuminate\View\View
      */
-    public function index(){
-        $orders = $this->repository->order('status')->paginate();
+    public function index($status=null){
+
+        if(is_null($status)){
+            $orders = $this->repository->order('status')->paginate();
+        }else{
+            $orders = $this->repository->filterBy($this->statusList[$status])->paginate();
+        }
 
         $deliverymans = $this->userRepository->deliverymans();
 
-        return view('admin.orders.index', compact('orders','deliverymans'));
+        $statusList = $this->statusList;
+
+        return view('admin.orders.index', compact('orders','deliverymans','statusList'));
     }
 
     public function create(){
@@ -39,9 +54,9 @@ class OrdersController extends Controller
     }
 
     public function edit($id){
-        $category = $this->repository->find($id);
+        $order = $this->repository->find($id);
 
-        return view('admin.categories.edit',compact('category'));
+        return view('admin.orders.edit',compact('order'));
     }
 
     /**
@@ -71,4 +86,14 @@ class OrdersController extends Controller
         return redirect()->route('admin.categories.index');
     }
 
+    public function status($id){
+
+        $order = $this->repository->find($id);
+
+        $order->user_deliveryman_id = Input::get('user_deliveryman_id');
+        $order->status = Input::get('status');
+        $order->save();
+
+        return redirect()->route('admin.orders.index',['status'=>null]);
+    }
 }

@@ -38,12 +38,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.']
     Route::get('clients/destroy/{id}/{status}',['as'=>'clients.destroy', 'uses'=>'ClientsController@destroy']);
 
     Route::get('orders',['as'=>'orders.index', 'uses'=>'OrdersController@index']);
+    Route::get('orders/{status}',['as'=>'orders.index', 'uses'=>'OrdersController@index']);
     Route::get('orders/create',['as'=>'orders.create', 'uses'=>'OrdersController@create']);
     Route::post('orders/store',['as'=>'orders.store', 'uses'=>'OrdersController@store']);
     Route::get('orders/edit/{id}',['as'=>'orders.edit', 'uses'=>'OrdersController@edit']);
     Route::put('orders/update/{id}',['as'=>'orders.update', 'uses'=>'OrdersController@update']);
     Route::get('orders/destroy/{id}/{status}',['as'=>'orders.destroy', 'uses'=>'OrdersController@destroy']);
-    Route::get('orders/details/{id}',['as'=>'orders.details', 'uses'=>'OrdersController@details']);
+    Route::post('orders/status/{id}',['as'=>'orders.status', 'uses'=>'OrdersController@status']);
 });
 
 Route::get('/charts', function()
