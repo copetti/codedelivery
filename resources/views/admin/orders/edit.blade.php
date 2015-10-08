@@ -33,18 +33,30 @@
                 <div class="col-xs-12">
                     <div class="text-center">
                         <i class="fa fa-search-plus pull-left icon"></i>
-                        <h2>Pedido #{{$order->id}}</h2>
+                        <h2>Pedido #{{$order->id}} - STATUS : ???</h2>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
                             <div class="panel panel-default height">
-                                <div class="panel-heading">Dados do Usúario</div>
+                                <div class="panel-heading">Dados do Cliente</div>
                                 <div class="panel-body">
-                                    <strong>André Copetti:</strong>
-                                    andrecopetti@gmai.com
+                                    <strong>{{ $order->client->name }}</strong>
+                                    {{ $order->client->email }}
                                     <br>
                                     <strong>50 Pedidos</strong><br>
+                                    Data : {{ $order->created_at }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3 col-lg-3">
+                            <div class="panel panel-default height">
+                                <div class="panel-heading">Endereço de Entrega</div>
+                                <div class="panel-body">
+                                    <strong>Campo Comprido - CIC</strong>
+                                    <br>
+                                    Rua Maria Homan Wisniewviski, 760
+                                    <strong>Curitiba/PR</strong>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-3 col-lg-3">
+                        <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
                             <div class="panel panel-default height">
                                 <div class="panel-heading">Informações</div>
                                 <div class="panel-body">
@@ -66,17 +78,6 @@
                                     <strong>Entrega Delivery:</strong> Sim<br>
                                     <strong>Forma pagamento:</strong> Dinheiro<br>
                                     <strong>Cupon Desconto:</strong> Não<br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
-                            <div class="panel panel-default height">
-                                <div class="panel-heading">Endereço de Entrega</div>
-                                <div class="panel-body">
-                                    <strong>Campo Comprido - CIC</strong>
-                                    <br>
-                                    Rua Maria Homan Wisniewviski, 760
-                                    <strong>Curitiba/PR</strong>
                                 </div>
                             </div>
                         </div>

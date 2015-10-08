@@ -24,8 +24,6 @@ class AdminClientRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required',
             'phone' => 'required',
             'address' => 'required',
             'city' => 'required',
@@ -37,8 +35,6 @@ class AdminClientRequest extends Request
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome é obrigatório!',
-            'email.required' => 'O campo email é obrigatório!',
             'phone.required' => 'O campo telefone é obrigatório!',
             'address.required' => 'O campo endereço é obrigatório!',
             'city.required' => 'O campo cidade é obrigatório!',

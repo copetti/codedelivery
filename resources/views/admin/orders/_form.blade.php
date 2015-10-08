@@ -1,13 +1,5 @@
-<div class="form-group @if ($errors->has('category_id')) has-error @endif">
-    {!! Form::label('category_id','Categoria:') !!}
-    {!! Form::select('category_id',$categories,null,['class'=>'form-control']) !!}
-    @if ($errors->has('category_id'))
-        <p class="help-block">{{ $errors->first('category_id') }}</p>
-    @endif
-</div>
-
 <div class="form-group @if ($errors->has('name')) has-error @endif">
-    {!! Form::label('name','Nome:') !!}
+    {!! Form::label('name','Nome Cliente:') !!}
     {!! Form::text('name', null, ['class'=>'form-control']) !!}
     @if ($errors->has('name'))
         <p class="help-block">{{ $errors->first('name') }}</p>

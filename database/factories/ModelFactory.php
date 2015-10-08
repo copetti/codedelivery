@@ -61,6 +61,6 @@ $factory->define(CodeDelivery\Models\OrderItem::class, function (Faker\Generator
         'product_id' => $faker->numberBetween(1,60),
         'order_id' => $faker->numberBetween(1,10),
         'price' => $faker->numberBetween(10,59),
-        'qtd' => $faker->numberBetween(1,10)
+        'qtd' => $faker->numberBetween(1,4)
     ];
 });

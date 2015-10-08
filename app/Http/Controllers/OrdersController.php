@@ -20,20 +20,28 @@ class OrdersController extends Controller
             'novo' =>  0,
             'atendimento' =>  1,
             'entregando' => 2,
-            'entregue' => 3
+            'entregue' => 3,
+            'cancelado' => 4
         ];
     }
 
     /**
      * @return \Illuminate\View\View
      */
-    public function index($status=null){
+    public function index(){
 
-        if(is_null($status)){
-            $orders = $this->repository->order('status')->paginate();
-        }else{
-            $orders = $this->repository->filterBy($this->statusList[$status])->paginate();
-        }
+        $orders = $this->repository->order('status')->paginate();
+
+        $deliverymans = $this->userRepository->deliverymans();
+
+        $statusList = $this->statusList;
+
+        return view('admin.orders.index', compact('orders','deliverymans','statusList'));
+    }
+
+    public function filter($status){
+
+        $orders = $this->repository->filterBy($this->statusList[$status])->paginate();
 
         $deliverymans = $this->userRepository->deliverymans();
 
@@ -43,7 +51,7 @@ class OrdersController extends Controller
     }
 
     public function create(){
-        return view('admin.categories.create');
+        return view('admin.orders.create');
     }
 
     public function store(AdminCategoryRequest $request){
@@ -65,12 +73,12 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(AdminCategoryRequest $request, $id){
+    public function update(Request $request, $id){
         $data = $request->all();
 
         $this->repository->update($data,$id);
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.orders.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -78,12 +86,12 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id,$status)
+    public function destroy($id)
     {
         $category = $this->repository->find($id);
-        $category->status = !$status;
+        $category->status = 4;
         $category->save();
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.orders.index');
     }
 
     public function status($id){
@@ -94,6 +102,7 @@ class OrdersController extends Controller
         $order->status = Input::get('status');
         $order->save();
 
-        return redirect()->route('admin.orders.index',['status'=>null]);
+        return redirect()->route('admin.orders.index');
     }
+
 }

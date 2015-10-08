@@ -14,7 +14,6 @@
                     <li class="active">Pedidos</li>
                 </ol>
                 <a class="btn btn-default pull-left" href="javascript:history.back()">Voltar</a>
-                <a class="btn btn-primary pull-right" href="{{ route('admin.orders.create') }}">Adicionar <i class="fa fa-plus fa-lg"></i></a>
             </div>
 
             <div class="panel-body">
@@ -22,8 +21,9 @@
                     <thead>
                     <th>ID</th>
                     <th>Cliente</th>
-                    <th>Entregador</th>
                     <th>Total</th>
+                    <th>Data / Hora</th>
+                    <th>Entregador</th>
                     <th>Pedido</th>
                     </thead>
                     <tbody>
@@ -31,8 +31,9 @@
                         <tr >
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->client->name }}</td>
-                            <td>{{ isset($order->deliveryman->name) ? $order->deliveryman->name:'' }}</td>
                             <td>{{ $order->total }}</td>
+                            <td>{{ $order->created_at->format('m/d/Y H:i:s') }}</td>
+                            <td>{{ isset($order->deliveryman->name) ? $order->deliveryman->name:'' }}</td>
                             <td>
                                 @if($order->status==0)
                                     <span class="label label-danger">Novo</span>
@@ -46,11 +47,14 @@
                                 @if($order->status==3)
                                     <span class="label label-success">Entregue</span>
                                 @endif
+                                @if($order->status==4)
+                                    <span class="label label-default">Cancelado</span>
+                                @endif
                             </td>
                             <td class="text-right">
                                 <div class="btn-group">
                                     <a class="btn btn-default" href="">
-                                        <i class="fa fa-user fa-fw"></i> Ações
+                                        Ações
                                     </a>
                                     <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
                                         <span class="fa fa-caret-down"></span>
@@ -119,52 +123,39 @@
                         </div>
 
                         <div class="modal-body">
-                                <div class="row">
-                                    {!! Form::open(['route'=>['admin.orders.status',$order->id],'method'=>'post']) !!}
+                            <div class="row">
+                                <div class="col-sm-6 col-md-12">
+                                    <div class="thumbnail">
+                                        <div class="caption">
 
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="thumbnail">
-                                            <div class="caption">
+                                            {!! Form::open(['route'=>['admin.orders.status',$order->id],'method'=>'post']) !!}
 
-                                                <div class="form-group @if ($errors->has('status')) has-error @endif">
-                                                    {!! Form::label('status','Status:') !!}
-                                                    {!! Form::select('status',[0 => 'Novo',1 => 'Em atendimento',2 => 'Em entrega',3 => 'Entregue'],$order->status ,['class'=>'form-control']) !!}
-                                                    @if ($errors->has('status'))
-                                                        <p class="help-block">{{ $errors->first('status') }}</p>
-                                                    @endif
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {!! Form::submit('Alterar', ['class'=> 'btn btn-primary']) !!}
-                                                </div>
-
-                                                {!! Form::close() !!}
+                                            <div class="form-group @if ($errors->has('status')) has-error @endif">
+                                                {!! Form::label('status','Status:') !!}
+                                                {!! Form::select('status',[0 => 'Novo',1 => 'Em atendimento',2 => 'Em entrega',3 => 'Entregue',4 => 'Cancelado'],$order->status ,['class'=>'form-control']) !!}
+                                                @if ($errors->has('status'))
+                                                    <p class="help-block">{{ $errors->first('status') }}</p>
+                                                @endif
                                             </div>
+
+                                            <div class="form-group @if ($errors->has('user_deliveryman_id')) has-error @endif">
+                                                {!! Form::label('user_deliveryman_id','Entregador:') !!}
+                                                {!! Form::select('user_deliveryman_id',$deliverymans,isset($order->deliveryman->id) ? $order->deliveryman->id:null ,['class'=>'form-control']) !!}
+                                                @if ($errors->has('user_deliveryman_id'))
+                                                    <p class="help-block">{{ $errors->first('user_deliveryman_id') }}</p>
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group">
+                                                {!! Form::submit('Alterar', ['class'=> 'btn btn-primary']) !!}
+                                            </div>
+
+                                            {!! Form::close() !!}
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="thumbnail">
-                                            <div class="caption">
-
-                                                <div class="form-group @if ($errors->has('user_deliveryman_id')) has-error @endif">
-                                                    {!! Form::label('user_deliveryman_id','Entregador:') !!}
-                                                    {!! Form::select('user_deliveryman_id',$deliverymans,isset($order->deliveryman->id) ? $order->deliveryman->id:null ,['class'=>'form-control']) !!}
-                                                    @if ($errors->has('user_deliveryman_id'))
-                                                        <p class="help-block">{{ $errors->first('user_deliveryman_id') }}</p>
-                                                    @endif
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {!! Form::submit('Alterar', ['class'=> 'btn btn-primary']) !!}
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {!! Form::close() !!}
                                 </div>
                             </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default " data-dismiss="modal">Fechar</button>

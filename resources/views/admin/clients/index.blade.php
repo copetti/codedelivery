@@ -30,16 +30,16 @@
                     <th></th>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
+                    @foreach($clients as $client)
                         <tr >
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->client->phone }}</td>
-                            <td>{{ $user->client->city.'/'.$user->client->state }}</td>
-                            <td>{{ $user->client->zipcode }}</td>
+                            <td>{{ $client->id }}</td>
+                            <td>{{ $client->user->name }}</td>
+                            <td>{{ $client->user->email }}</td>
+                            <td>{{ $client->phone }}</td>
+                            <td>{{ $client->city.'/'.$client->state }}</td>
+                            <td>{{ $client->zipcode }}</td>
                             <td>
-                                @if($user->status==1)
+                                @if($client->status==1)
                                     <span class="label label-success">Ativo</span>
                                 @else
                                     <span class="label label-danger">Inativo</span>
@@ -55,19 +55,19 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('admin.clients.edit',['id'=>$user->id]) }}">
+                                            <a href="{{ route('admin.clients.edit',['id'=>$client->id]) }}">
                                                 <i class="fa fa-pencil fa-fw"></i> Editar
                                             </a>
                                         </li>
-                                        @if($user->status==1)
+                                        @if($client->status==1)
                                             <li>
-                                                <a href="{{ route('admin.clients.destroy',['id'=>$user->id,'status'=>1]) }}">
+                                                <a href="{{ route('admin.clients.destroy',['id'=>$client->id,'status'=>1]) }}">
                                                     <i class="fa fa-trash-o fa-fw"></i> Deletar
                                                 </a>
                                             </li>
                                         @else
                                             <li>
-                                                <a href="{{ route('admin.clients.destroy',['id'=>$user->id,'status'=>0]) }}">
+                                                <a href="{{ route('admin.clients.destroy',['id'=>$client->id,'status'=>0]) }}">
                                                     <i class="fa fa-plus fa-fw"></i> Ativar
                                                 </a>
                                             </li>
@@ -81,7 +81,7 @@
                 </table>
             </div>
 
-            <div class="panel-footer">{!! $users->render() !!}</div>
+            <div class="panel-footer">{!! $clients->render() !!}</div>
         </div>
     </div>
 

@@ -16,6 +16,10 @@ Route::get('home', 'HomeController@index');
 Route::get('', 'HomeController@index');
 
 Route::group(['prefix'=>'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.'], function() {
+
+    Route::get('',['as'=>'dashboard.index', 'uses'=>'DashboardController@index']);
+    Route::get('dashboard',['as'=>'dashboard.index', 'uses'=>'DashboardController@index']);
+
     Route::get('categories',['as'=>'categories.index', 'uses'=>'CategoriesController@index']);
     Route::get('categories/create',['as'=>'categories.create', 'uses'=>'CategoriesController@create']);
     Route::post('categories/store',['as'=>'categories.store', 'uses'=>'CategoriesController@store']);
@@ -38,7 +42,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.']
     Route::get('clients/destroy/{id}/{status}',['as'=>'clients.destroy', 'uses'=>'ClientsController@destroy']);
 
     Route::get('orders',['as'=>'orders.index', 'uses'=>'OrdersController@index']);
-    Route::get('orders/{status}',['as'=>'orders.index', 'uses'=>'OrdersController@index']);
+    Route::get('orders/filter/{status}',['as'=>'orders.filter', 'uses'=>'OrdersController@filter']);
     Route::get('orders/create',['as'=>'orders.create', 'uses'=>'OrdersController@create']);
     Route::post('orders/store',['as'=>'orders.store', 'uses'=>'OrdersController@store']);
     Route::get('orders/edit/{id}',['as'=>'orders.edit', 'uses'=>'OrdersController@edit']);

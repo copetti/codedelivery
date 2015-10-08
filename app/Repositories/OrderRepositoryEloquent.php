@@ -38,4 +38,9 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function filterBy($status){
         return $this->model->where('status',$status);
     }
+
+    public function getCountByStatus($status){
+        return $this->model->where('status',$status)->count();
+    }
+
 }

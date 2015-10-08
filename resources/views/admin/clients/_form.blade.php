@@ -1,6 +1,6 @@
 <div class="form-group @if ($errors->has('name')) has-error @endif">
     {!! Form::label('name','Nome:') !!}
-    {!! Form::text('name', null, ['class'=>'form-control']) !!}
+    {!! Form::text('user[name]', null, ['class'=>'form-control']) !!}
     @if ($errors->has('name'))
         <p class="help-block">{{ $errors->first('name') }}</p>
     @endif
@@ -8,7 +8,7 @@
 
 <div class="form-group @if ($errors->has('email')) has-error @endif">
     {!! Form::label('email','Email:') !!}
-    {!! Form::text('email', null, ['class'=>'form-control']) !!}
+    {!! Form::text('user[email]', null, ['class'=>'form-control']) !!}
     @if ($errors->has('email'))
         <p class="help-block">{{ $errors->first('email') }}</p>
     @endif
