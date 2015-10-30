@@ -38,5 +38,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'CodeDelivery\Repositories\OrderRepository', //chamada padrao do repositorio para carregar o Eloquent
             'CodeDelivery\Repositories\OrderRepositoryEloquent'// Chama o eloquent
         );
+
+        $this->app->bind(
+            'CodeDelivery\Repositories\CupomRepository', //chamada padrao do repositorio para carregar o Eloquent
+            'CodeDelivery\Repositories\CupomRepositoryEloquent'// Chama o eloquent
+        );
     }
 }

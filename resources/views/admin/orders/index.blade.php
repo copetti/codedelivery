@@ -14,6 +14,7 @@
                     <li class="active">Pedidos</li>
                 </ol>
                 <a class="btn btn-default pull-left" href="javascript:history.back()">Voltar</a>
+                <a class="btn btn-primary pull-right" href="{{ route('customer.order.create') }}">Novo Pedido <i class="fa fa-plus fa-lg"></i></a>
             </div>
 
             <div class="panel-body">

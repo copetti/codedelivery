@@ -267,6 +267,11 @@
                             <!-- /.nav-second-level -->
                         </li>
 
+                        <li {{ (Request::is('admin.cupoms/*') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('admin/cupoms') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Cupons</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->

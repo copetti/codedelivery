@@ -64,3 +64,10 @@ $factory->define(CodeDelivery\Models\OrderItem::class, function (Faker\Generator
         'qtd' => $faker->numberBetween(1,4)
     ];
 });
+
+$factory->define(CodeDelivery\Models\Cupom::class, function (Faker\Generator $faker) {
+    return [
+        'code' => $faker->numberBetween(100,10000),
+        'value' => $faker->numberBetween(50,100)
+    ];
+});

@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt(123456),
             'role' => 'admin',
             'remember_token' => str_random(10)
-        ]);
+        ])->client()->save(factory(Client::class)->make());
 
         factory(User::class)->create([
             'name' => 'Entregador 1',
@@ -27,7 +27,7 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt(123456),
             'role' => 'deliveryman',
             'remember_token' => str_random(10)
-        ]);
+        ])->client()->save(factory(Client::class)->make());
 
         factory(User::class)->create([
             'name' => 'Entregador 2',
@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt(123456),
             'role' => 'deliveryman',
             'remember_token' => str_random(10)
-        ]);
+        ])->client()->save(factory(Client::class)->make());
 
         factory(User::class)->create([
             'name' => 'Entregador 3',
@@ -43,7 +43,14 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt(123456),
             'role' => 'deliveryman',
             'remember_token' => str_random(10)
-        ]);
+        ])->client()->save(factory(Client::class)->make());
+
+        factory(User::class)->create([
+            'name' => 'Usuário teste',
+            'email' => 'user@codedelivery.com',
+            'password' => bcrypt(123456),
+            'remember_token' => str_random(10)
+        ])->client()->save(factory(Client::class)->make());
 
         factory(User::class,10)->create()->each(function($u){
             $u->client()->save(factory(Client::class)->make());

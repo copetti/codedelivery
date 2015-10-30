@@ -1,44 +1,41 @@
 @extends('layouts.dashboard')
-@section('page_heading','Produtos')
+@section('page_heading','Cupons')
 @section('section')
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Tabela de Produtos</h3>
+                <h3 class="panel-title">Tabela de Cupons</h3>
             </div>
 
             <div class="panel-body">
                 <ol class="breadcrumb">
                     <li><a href="home">Home</a></li>
-                    <li class="active">Produtos</li>
+                    <li class="active">Cupons</li>
                 </ol>
                 <a class="btn btn-default pull-left" href="javascript:history.back()">Voltar</a>
-                <a class="btn btn-primary pull-right" href="{{ route('admin.products.create') }}">Adicionar <i class="fa fa-plus fa-lg"></i></a>
+                <a class="btn btn-primary pull-right" href="{{ route('admin.cupoms.create') }}">Adicionar <i class="fa fa-plus fa-lg"></i></a>
             </div>
 
             <div class="panel-body">
                 <table class="table">
                     <thead>
                     <th>ID</th>
-                    <th>Nome</th>
-                    <th>Categoria</th>
-                    <th>Preço</th>
-                    <th>Status</th>
+                    <th>Código</th>
+                    <th>Valor</th>
                     <th></th>
                     </thead>
                     <tbody>
-                    @foreach($products as $product)
+                    @foreach($cupoms as $cupom)
                         <tr >
-                            <td>{{ $product->id }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->category->name }}</td>
-                            <td>R$ {{ number_format($product->price,'2',',','.') }}</td>
+                            <td>{{ $cupom->id }}</td>
+                            <td>{{ $cupom->code }}</td>
+                            <td>R$ {{ number_format($cupom->value,'2',',','.') }}</td>
                             <td>
-                                @if($product->status==1)
-                                    <span class="label label-success">Ativo</span>
+                                @if($cupom->used==0)
+                                    <span class="label label-success">Novo</span>
                                 @else
-                                    <span class="label label-danger">Inativo</span>
+                                    <span class="label label-danger">Usado</span>
                                 @endif
                             </td>
                             <td class="text-right">
@@ -51,19 +48,19 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('admin.products.edit',['id'=>$product->id]) }}">
+                                            <a href="{{ route('admin.cupoms.edit',['id'=>$cupom->id]) }}">
                                                 <i class="fa fa-pencil fa-fw"></i> Editar
                                             </a>
                                         </li>
-                                        @if($product->status==1)
+                                        @if($cupom->used==0)
                                             <li>
-                                                <a href="{{ route('admin.products.destroy',['id'=>$product->id,'status'=>1]) }}">
+                                                <a href="{{ route('admin.cupoms.destroy',['id'=>$cupom->id,'used'=>0]) }}">
                                                     <i class="fa fa-trash-o fa-fw"></i> Deletar
                                                 </a>
                                             </li>
                                         @else
                                             <li>
-                                                <a href="{{ route('admin.products.destroy',['id'=>$product->id,'status'=>0]) }}">
+                                                <a href="{{ route('admin.cupoms.destroy',['id'=>$cupom->id,'used'=>1]) }}">
                                                     <i class="fa fa-plus fa-fw"></i> Ativar
                                                 </a>
                                             </li>
@@ -77,7 +74,7 @@
                 </table>
             </div>
 
-            <div class="panel-footer">{!! $products->render() !!}</div>
+            <div class="panel-footer">{!! $cupoms->render() !!}</div>
         </div>
     </div>
 

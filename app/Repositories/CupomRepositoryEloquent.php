@@ -4,14 +4,14 @@ namespace CodeDelivery\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeDelivery\Repositories\CategoryRepository;
-use CodeDelivery\Models\Category;
+use CodeDelivery\Repositories\CupomRepository;
+use CodeDelivery\Models\Cupom;
 
 /**
- * Class CategoryRepositoryEloquent
+ * Class CupomRepositoryEloquent
  * @package namespace CodeDelivery\Repositories;
  */
-class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
+class CupomRepositoryEloquent extends BaseRepository implements CupomRepository
 {
     /**
      * Specify Model class name
@@ -20,7 +20,7 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
      */
     public function model()
     {
-        return Category::class;
+        return Cupom::class;
     }
 
     /**
@@ -29,13 +29,5 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    public function lists(){
-        return $this->model->lists('name','id');
-    }
-
-    public function getAllActive(){
-        return $this->model->where('status',1)->get(['id','name']);
     }
 }

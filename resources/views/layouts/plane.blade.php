@@ -30,5 +30,7 @@
 	<script src="{{ asset("js/categories.js") }}" type="text/javascript"></script>
 @endif
 
+@yield('post-script')
+
 </body>
 </html>
