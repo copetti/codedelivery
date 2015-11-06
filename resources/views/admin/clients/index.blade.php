@@ -39,7 +39,7 @@
                             <td>{{ $client->city.'/'.$client->state }}</td>
                             <td>{{ $client->zipcode }}</td>
                             <td>
-                                @if($client->status==1)
+                                @if($client->user->status==1)
                                     <span class="label label-success">Ativo</span>
                                 @else
                                     <span class="label label-danger">Inativo</span>
@@ -59,7 +59,7 @@
                                                 <i class="fa fa-pencil fa-fw"></i> Editar
                                             </a>
                                         </li>
-                                        @if($client->status==1)
+                                        @if($client->user->status==1)
                                             <li>
                                                 <a href="{{ route('admin.clients.destroy',['id'=>$client->id,'status'=>1]) }}">
                                                     <i class="fa fa-trash-o fa-fw"></i> Deletar

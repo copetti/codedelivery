@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\View;
 
 class CheckoutController extends Controller
 {
-    private $orderRepository;
+    private $repository; // OrderRepository
     private $userRepository;
     private $productRepository;
     private $service;
 
-    public function __construct(OrderRepository $orderRepository, UserRepository $userRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository, OrderService $service){
-        $this->orderRepository = $orderRepository;
+    public function __construct(OrderRepository $repository, UserRepository $userRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository, OrderService $service){
+        $this->repository = $repository;
         $this->userRepository = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productRepository = $productRepository;
@@ -30,7 +30,7 @@ class CheckoutController extends Controller
 
         $client_id = $this->userRepository->find(Auth::user()->id)->client->id;
 
-        $orders = $this->orderRepository->scopeQuery(function($query) use($client_id){
+        $orders = $this->repository->scopeQuery(function($query) use($client_id){
             return $query->where('client_id','=', $client_id);
         })->paginate();
 

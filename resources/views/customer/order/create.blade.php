@@ -17,8 +17,6 @@
                     <a class="btn btn-primary pull-right" href="{{ route('customer.order.create') }}">Novo Pedido <i class="fa fa-plus fa-lg"></i></a>
                 </div>
 
-
-
                 <div class="panel-body">
                     {!!  Form::open(['route'=>'customer.order.store','class'=>'form']) !!}
                         <div class="form-group">
@@ -36,8 +34,8 @@
                                 <tr>
                                     <td>
                                         <select class="form-control" name="items[0][product_id]">
-                                            @foreach($products as $product)
-                                                <option value="{{$product->id}}" data-price="{{$product->price}}">{{$product->name . ' ( '. $product->price. ' )'}}</option>
+                                            @foreach($products as $p)
+                                                <option value="{{$p->id}}" data-price="{{$p->price}}">{{$p->name . ' ( '. $p->price. ' )'}}</option>
                                             @endforeach
                                         </select>
                                     </td>

@@ -15,7 +15,7 @@
 Route::get('home', 'HomeController@index');
 Route::get('', 'HomeController@index');
 
-Route::group(['prefix'=>'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.'], function() {
+Route::group(['prefix'=>'admin', 'middleware'=>'auth.checkrole:admin', 'as'=>'admin.'], function() {
 
     Route::get('',['as'=>'dashboard.index', 'uses'=>'DashboardController@index']);
     Route::get('dashboard',['as'=>'dashboard.index', 'uses'=>'DashboardController@index']);
@@ -58,12 +58,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.']
     Route::get('cupoms/destroy/{id}/{used}',['as'=>'cupoms.destroy', 'uses'=>'CupomsController@destroy']);
 });
 
-Route::group(['prefix'=>'customer', 'as'=>'customer.'], function() {
-
+Route::group(['prefix'=>'customer',  'as'=>'customer.'], function() {
     Route::get('order', ['as' => 'order.index', 'uses' => 'CheckoutController@index']);
     Route::get('order/create', ['as' => 'order.create', 'uses' => 'CheckoutController@create']);
     Route::post('order/store', ['as' => 'order.store', 'uses' => 'CheckoutController@store']);
-
 });
 
 Route::get('/charts', function()

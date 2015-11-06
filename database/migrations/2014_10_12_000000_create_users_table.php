@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->string('role')->default('client');
             $table->rememberToken();
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

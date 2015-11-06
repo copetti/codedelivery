@@ -11,7 +11,7 @@ class Order extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-        'user_id',
+        'client_id',
         'user_deliveryman_id',
         'total',
         'status'
@@ -26,7 +26,7 @@ class Order extends Model implements Transformable
     }
 
     public function client(){
-        return $this->belongsTo(User::class,'client_id');
+        return $this->belongsTo(Client::class);
     }
 
     public function products(){
