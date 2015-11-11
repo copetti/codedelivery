@@ -64,6 +64,21 @@ Route::group(['prefix'=>'customer',  'as'=>'customer.'], function() {
     Route::post('order/store', ['as' => 'order.store', 'uses' => 'CheckoutController@store']);
 });
 
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});
+
+Route::group(['prefix'=>'api', 'middleware'=>'oauth', 'as'=>'api.'], function() {
+
+    Route::get('pedidos', function(){
+       return [
+           'id' => '1',
+           'client' => 'Andre',
+           'total' => 10
+       ];
+    });
+});
+
 Route::get('/charts', function()
 {
     return View::make('mcharts');
