@@ -70,12 +70,24 @@ Route::post('oauth/access_token', function() {
 
 Route::group(['prefix'=>'api', 'middleware'=>'oauth', 'as'=>'api.'], function() {
 
-    Route::get('pedidos', function(){
-       return [
-           'id' => '1',
-           'client' => 'Andre',
-           'total' => 10
-       ];
+    Route::group(['prefix'=>'client', 'middleware'=>'oauth.checkrole:client', 'as'=>'client.'], function() {
+        Route::get('pedidos', function(){
+            return [
+                'id' => '1',
+                'client' => 'Andre CLiente',
+                'total' => 10
+            ];
+        });
+    });
+
+    Route::group(['prefix'=>'deliveryman', 'middleware'=>'oauth.checkrole:deliveryman', 'as'=>'deliveryman.'], function() {
+        Route::get('pedidos', function(){
+            return [
+                'id' => '1',
+                'client' => 'Andre Entregador',
+                'total' => 10
+            ];
+        });
     });
 });
 
