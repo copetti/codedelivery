@@ -31,7 +31,7 @@
                     @foreach($orders as $order)
                         <tr >
                             <td>{{ $order->id }}</td>
-                            <td>{{ $order->client->name }}</td>
+                            <td>{{ $order->client->user->name }}</td>
                             <td>{{ $order->total }}</td>
                             <td>{{ $order->created_at->format('m/d/Y H:i:s') }}</td>
                             <td>{{ isset($order->deliveryman->name) ? $order->deliveryman->name:'' }}</td>
