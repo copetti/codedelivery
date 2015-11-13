@@ -8,24 +8,33 @@ use CodeDelivery\Repositories\ProductRepository;
 
 class OrderService
 {
+    /**
+     * @var orderRepository
+     */
     private $orderRepository;
+    /**
+     * @var cupomRepository
+     */
     private $cupomRepository;
+
+    /**
+     * @var productRepository
+     */
     private $productRepository;
 
-    public function __construct(OrderRepository $orderRepository, CupomRepository $cupomRepository, ProductRepository $productRepository)
-    {
+    public function __construct(OrderRepository $orderRepository, CupomRepository $cupomRepository, ProductRepository $productRepository ){
         $this->orderRepository = $orderRepository;
         $this->cupomRepository = $cupomRepository;
         $this->productRepository = $productRepository;
     }
 
-    public function create(array $data)
-    {
+    public function create(array $data){
+
         \DB::beginTransaction();
+
         try {
-
             $data['status'] = 0;
-
+            $data['cupom_id'] = null;
             if (isset($data['cupom_code'])) {
                 $cupom = $this->cupomRepository->findByField('code', $data['cupom_code'])->first();
                 $data['cupom_id'] = $cupom->id;
@@ -36,9 +45,11 @@ class OrderService
 
             $items = $data['items'];
             unset($data['items']);
-
+            //echo '<pre>';print_r($data);die;
             $order = $this->orderRepository->create($data);
+
             $total = 0;
+
             foreach ($items as $item) {
                 $item['price'] = $this->productRepository->find($item['product_id'])->price;
                 $order->items()->create($item);
@@ -46,15 +57,14 @@ class OrderService
             }
 
             $order->total = $total;
-
             if (isset($cupom)) {
                 $order->total = $total - $cupom->value;
             }
-
             $order->save();
 
             \DB::commit();
-        } catch(\Exception $e) {
+
+        } catch(\Exception $e){
             \DB::rollback();
             throw $e;
         }

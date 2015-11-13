@@ -2,52 +2,57 @@
 
 namespace CodeDelivery\Http\Controllers;
 
-use Auth;
-use CodeDelivery\Http\Requests;
+use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class CheckoutController extends Controller
 {
-    private $orderRepository;
+    private $repository; // OrderRepository
     private $userRepository;
     private $productRepository;
     private $service;
 
-    public function __construct(OrderRepository $orderRepository, UserRepository $userRepository, ProductRepository $productRepository, OrderService $service){
-        $this->orderRepository = $orderRepository;
+    public function __construct(OrderRepository $repository, UserRepository $userRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository, OrderService $service){
+        $this->repository = $repository;
         $this->userRepository = $userRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->productRepository = $productRepository;
         $this->service = $service;
     }
 
     public function index(){
-        $clientId = $this->userRepository->find(Auth::user()->id)->client->id;
 
-        $orders = $this->orderRepository->scopeQuery(function($query) use($clientId) {
-            return $query->where('client_id','=',$clientId);
+        $client_id = $this->userRepository->find(Auth::user()->id)->client->id;
+
+        $orders = $this->repository->scopeQuery(function($query) use($client_id){
+            return $query->where('client_id','=', $client_id);
         })->paginate();
 
-        return view('customer.order.index', compact('orders'));
+        return View('customer.order.index', compact('orders'));
     }
 
     public function create(){
 
+        $categories = $this->categoryRepository->getAllActive();
+
         $products = $this->productRepository->lists();
 
-        return view('customer.order.create', compact('products'));
+        return view('customer.order.create', compact('products','categories'));
     }
 
     public function store(Request $request){
 
         $data = $request->all();
 
-        $clientId = $this->userRepository->find(Auth::user()->id)->client->id;
+        $cliente_id = $this->userRepository->find(Auth::user()->id)->client->id;
 
-        $data['client_id'] = $clientId;
+        $data['cliente_id'] = $cliente_id;
 
         $this->service->create($data);
 
