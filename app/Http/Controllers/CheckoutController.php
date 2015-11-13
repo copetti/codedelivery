@@ -52,7 +52,7 @@ class CheckoutController extends Controller
 
         $cliente_id = $this->userRepository->find(Auth::user()->id)->client->id;
 
-        $data['cliente_id'] = $cliente_id;
+        $data['client_id'] = $cliente_id;
 
         $this->service->create($data);
 
