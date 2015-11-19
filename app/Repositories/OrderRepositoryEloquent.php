@@ -2,6 +2,8 @@
 
 namespace CodeDelivery\Repositories;
 
+
+use Illuminate\Database\Eloquent\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeDelivery\Models\Order;
@@ -42,4 +44,19 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         return $this->model->where('status',$status)->count();
     }
 
+    public function getByIdAndDeliveryman($id,$idDeliveryman){
+        $result = $this->with(['client','items','cupom'])->findWhere([
+            'id' => $id,
+            'user_deliveryman_id' => $idDeliveryman
+        ]);
+
+        $result = $result->first();
+        if($result) {
+            $result->items->each(function ($item) {
+                $item->product;
+            });
+        }
+
+        return $result;
+    }
 }
