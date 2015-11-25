@@ -18,6 +18,16 @@
                 </div>
 
                 <div class="panel-body">
+                    <div class="form-group @if ($errors->has('items.0.product_id')) has-error @endif">
+                        @if ($errors->has('items.0.product_id'))
+                            <p class="help-block">{{ $errors->first('items.0.product_id') }}</p>
+                        @endif
+                    </div>
+                    <div class="form-group @if ($errors->has('items.0.qtd')) has-error @endif">
+                        @if ($errors->has('items.0.qtd'))
+                            <p class="help-block">{{ $errors->first('items.0.qtd') }}</p>
+                        @endif
+                    </div>
                     {!!  Form::open(['route'=>'customer.order.store','class'=>'form']) !!}
                         <div class="form-group">
                             <label>Total : </label>

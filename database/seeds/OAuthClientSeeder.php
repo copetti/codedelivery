@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class OAuthClientSeeder extends Seeder
@@ -15,6 +16,8 @@ class OAuthClientSeeder extends Seeder
             'id' => 'appid01',
             'secret' => 'secret',
             'name' => 'Minha App Mobile',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
     }
 }

@@ -43,7 +43,7 @@ class CheckoutRequest extends Request
         $rules['items.'.$key.'.qtd'] = 'required';
     }
 
-    public function messages()
+/*    public function messages()
     {
         $msgs = [
             'cupom_code.exists' => 'O cupom informado é invalido!!!'
@@ -63,5 +63,5 @@ class CheckoutRequest extends Request
     public function buildRulesMessagesItems($key, array &$msgs){
         $msgs['items.'.$key.'.product_id.required'] = 'O campo produto '.$key.' é obrigatório!';
         $msgs['items.'.$key.'.qtd.required'] = 'O campo quantidade '.$key.' é obrigatório!';
-    }
+    }*/
 }
