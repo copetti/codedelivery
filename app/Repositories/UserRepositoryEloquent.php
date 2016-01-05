@@ -13,6 +13,7 @@ use CodeDelivery\Models\User;
  */
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
+    protected $skipPresenter = true;
     /**
      * Specify Model class name
      *
@@ -45,5 +46,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
     public function verifyUserEmail($email){
         return $this->model->where('email','=', $email)->count();
+    }
+
+    public function presenter()
+    {
+        return \CodeDelivery\Presenters\UserPresenter::class;
     }
 }

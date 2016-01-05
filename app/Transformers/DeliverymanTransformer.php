@@ -2,26 +2,27 @@
 
 namespace CodeDelivery\Transformers;
 
-use CodeDelivery\Models\Cupom;
+use CodeDelivery\Models\User;
 use League\Fractal\TransformerAbstract;
 
 /**
- * Class CupomTransformer
+ * Class DeliverymanTransformer
  * @package namespace CodeDelivery\Transformers;
  */
-class CupomTransformer extends TransformerAbstract
+class DeliverymanTransformer extends TransformerAbstract
 {
 
     /**
-     * Transform the \Cupom entity
-     * @param \Cupom $model
+     * Transform the \User entity
+     * @param \User $model
      *
      * @return array
      */
-    public function transform(Cupom $model) {
+    public function transform(User $model) {
         return [
             'id'         => (int)$model->id,
-            'code'       => (string)$model->code,
+            'name'       => (string)$model->name,
+            'email'      => (string)$model->email,
 
             /* place your other model properties here */
 
